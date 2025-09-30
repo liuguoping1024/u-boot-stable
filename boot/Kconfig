@@ -712,9 +712,12 @@ config SPL_BOOTMETH_VBE_REQUEST
 
 	  This is only useful if you are booting an OS direct from SPL.
 
+choice
+	prompt "Method for VBE to find the correct bootdev"
+	default BOOTMETH_VBE_SIMPLE
+
 config BOOTMETH_VBE_SIMPLE
 	bool "Bootdev support for VBE 'simple' method"
-	default y
 	imply SPL_CRC8 if SPL
 	imply VPL_CRC8 if VPL
 	help
@@ -733,6 +736,8 @@ config BOOTMETH_VBE_ABREC
 	  A and B have the same version. If neither firmware image passes the
 	  verification step, a recovery image is booted. This method will
 	  eventually provide rollback protection as well.
+
+endchoice
 
 if BOOTMETH_VBE_SIMPLE
 
