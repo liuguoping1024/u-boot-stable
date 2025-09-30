@@ -977,6 +977,7 @@ config SPL_MUSB_NEW
 
 config SPL_NAND_SUPPORT
 	bool "Support NAND flash"
+	depends on !COMPILE_TEST
 	select SPL_LOAD_BLOCK
 	help
 	  Enable support for NAND (Negative AND) flash in SPL. NAND flash

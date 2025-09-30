@@ -236,6 +236,7 @@ config TPL_MMC
 
 config TPL_NAND_SUPPORT
 	bool "Support NAND flash"
+	depends on !COMPILE_TEST
 	help
 	  Enable support for NAND in TPL. See SPL_NAND_SUPPORT for details.
 
