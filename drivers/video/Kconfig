@@ -285,6 +285,11 @@ config VIDEO_SYNC_CYCLIC_MS
 	  improves the responsiveness of the command line to new characters
 	  being entered.
 
+config SPL_VIDEO_SYNC_CYCLIC_MS
+	int
+	depends on VIDEO_SYNC_CYCLIC_MS > 0
+	default VIDEO_SYNC_CYCLIC_MS
+
 config PANEL
 	bool "Enable panel uclass support"
 	default y
