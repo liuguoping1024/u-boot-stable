@@ -356,11 +356,16 @@ extern "C" {
 #if (__STD_C || defined(HAVE_MEMCPY))
 
 #if __STD_C
+#ifdef USE_HOSTCC
+/* Prototypes that host tools must have available. */
+void *memalign(size_t, size_t);
+#else /* !USE_HOSTCC */
 /* U-Boot defines memset() and memcpy in /include/linux/string.h
 void* memset(void*, int, size_t);
 void* memcpy(void*, const void*, size_t);
 */
 #include <linux/string.h>
+#endif /* USE_HOSTCC */
 #else
 #ifdef WIN32
 /* On Win32 platforms, 'memset()' and 'memcpy()' are already declared in */
