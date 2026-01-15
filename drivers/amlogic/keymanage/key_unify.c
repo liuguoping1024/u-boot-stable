@@ -331,7 +331,7 @@ int key_unify_read(const char *keyname, void* keydata, const unsigned bufLen)
 
     int ret = theDevOps->pKeyExist(keyname);
     if (!ret) {
-        KM_ERR("key[%s] not programed yet\n", keyname);
+        //KM_ERR("key[%s] not programed yet\n", keyname);
         return __LINE__;
     }
 
@@ -402,7 +402,7 @@ int key_unify_query_secure(const char* keyname, int* isSecure)
 
     int ret = theDevOps->pKeyExist (keyname) ;
     if (!ret) {
-        KM_ERR("key[%s] not programed yet\n", keyname);
+        //KM_ERR("key[%s] not programed yet\n", keyname);
         return __LINE__;
     }
 
