@@ -19,8 +19,6 @@
 int misc_init_r(void)
 {
 	u8 mac_addr[ARP_HLEN];
-	char serial[SM_SERIAL_SIZE];
-	u32 sid;
 	int ret;
 
 	char _cmdbuf[96];
@@ -78,22 +76,7 @@ int misc_init_r(void)
 		}
 	}
 
-	if (mac_addr[0]==0)
-	  if (!meson_sm_get_serial(serial, SM_SERIAL_SIZE)) {
-		sid = crc32(0, (unsigned char *)serial, SM_SERIAL_SIZE);
-		/* Ensure the NIC specific bytes of the mac are not all 0 */
-		if ((sid & 0xffff) == 0)
-			sid |= 0x800000;
-
-		/* OUI registered MAC address */
-		mac_addr[0] = 0x10;
-		mac_addr[1] = 0x27;
-		mac_addr[2] = 0xBE;
-		mac_addr[3] = (sid >> 16) & 0xff;
-		mac_addr[4] = (sid >>  8) & 0xff;
-		mac_addr[5] = (sid >>  0) & 0xff;
-		eth_env_set_enetaddr("ethaddr", mac_addr);
-	  }
+	meson_generate_serial_ethaddr();
 
 	return 0;
 }
