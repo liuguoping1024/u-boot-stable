@@ -4,7 +4,10 @@
 # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
 
 obj-y += mmc.o
+obj-y += mmc_aml.o
 obj-$(CONFIG_$(SPL_)DM_MMC) += mmc-uclass.o
+obj-$(CONFIG_CMD_MMC) += storage_emmc.o
+obj-$(CONFIG_MMC_MESON_GX) += aml_emmc_partition.o
 
 ifdef CONFIG_$(SPL_TPL_)DM_MMC
 obj-$(CONFIG_$(SPL_TPL_)BOOTSTD) += mmc_bootdev.o
