@@ -1,0 +1,14 @@
+menu "AMLOGIC Drivers"
+
+config AML_DRIVER
+	bool "AML drivers Support"
+	select SHA1
+	select SHA256
+	help
+	  Enable support for the Amlogic drivers.
+
+source "drivers/amlogic/keymanage/Kconfig"
+
+source "drivers/amlogic/storagekey/Kconfig"
+
+endmenu
