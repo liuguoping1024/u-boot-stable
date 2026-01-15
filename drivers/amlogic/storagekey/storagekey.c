@@ -68,7 +68,7 @@ static int32_t _amlkey_init(uint8_t *seed, uint32_t len, int encrypt_type)
 	uint32_t buffer_size, actual_size;
 
 	/* do nothing for now*/
-	printf("%s() enter!\n", __func__);
+	//printf("%s() enter!\n", __func__);
 	if (storagekey_info.buffer != NULL) {
 		printf("%s() %d: already init!\n", __func__, __LINE__);
 		goto _out;
@@ -87,8 +87,8 @@ static int32_t _amlkey_init(uint8_t *seed, uint32_t len, int encrypt_type)
 		encrypt_type = 0;
 	secure_storage_set_enctype(encrypt_type);
 	actual_size = store_rsv_size("key");
-	printf("%s %d actual_size: 0x%x\n", __func__, __LINE__,
-		actual_size);
+	//printf("%s %d actual_size: 0x%x\n", __func__, __LINE__,
+	//	actual_size);
 
 	storagekey_info.size = min_t(uint32_t, actual_size, buffer_size);
 	ret = store_rsv_read("key", storagekey_info.size, storagekey_info.buffer);

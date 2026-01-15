@@ -69,10 +69,11 @@ int misc_init_r(void)
 				sprintf(_cmdbuf,"env set ethaddr %s", keydata);
 				ret = run_command(_cmdbuf, 0);
 				mac_addr[0] = (char) 0x01;
-			} else 
-			{
-				printf("keyman read mac failed\n");
-			}
+			} 
+			//else 
+			//{
+			//	printf("keyman read mac failed\n");
+			//}
 		}
 	}
 

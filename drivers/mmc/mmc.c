@@ -3259,15 +3259,15 @@ int mmc_pattern_check(struct mmc *mmc, struct aml_pattern *table)
 		buf = (u32 *)addr;
 		crc32_s = crc32(0, (u8 *)addr, (vpart->size - 4));
 		if (crc32_s != buf[vpart->size/4 - 1]) {
-			printf("check %s failed,need to write\n",
-						table->name);
+			//printf("check %s failed,need to write\n",
+			//			table->name);
 			mmc_write_cali_mattern(addr, table);
 			n = blk_dwrite(mmc_get_blk_desc(mmc), blk, cnt, addr);
-			printf("several 0x%x pattern blocks write %s\n",
-				table->pattern, (n == cnt) ? "OK" : "ERROR");
+			//printf("several 0x%x pattern blocks write %s\n",
+			//	table->pattern, (n == cnt) ? "OK" : "ERROR");
 		}
-		printf("crc32_s:0x%x == storage crc_pattern:0x%x!!!\n",
-				crc32_s, buf[vpart->size/4 - 1]);
+		//printf("crc32_s:0x%x == storage crc_pattern:0x%x!!!\n",
+		//		crc32_s, buf[vpart->size/4 - 1]);
 	}
 	free(addr);
 	return (n == cnt) ? 0 : 1;

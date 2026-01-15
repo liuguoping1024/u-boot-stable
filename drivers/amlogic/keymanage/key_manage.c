@@ -396,7 +396,7 @@ int key_manage_query_size(const char* keyname, ssize_t* keysize)
         return __LINE__;
     }
     if (!exist) {
-        KM_ERR ("key[%s] not programed yet\n", keyname) ;
+        //KM_ERR ("key[%s] not programed yet\n", keyname) ;
         return __LINE__;
     }
 
@@ -455,7 +455,7 @@ int key_manage_query_secure(const char* keyname, int* isSecure)
         return __LINE__;
     }
     if (!exist) {
-        KM_ERR ("Key[%s] not programed yet\n", keyname) ;
+        //KM_ERR ("Key[%s] not programed yet\n", keyname) ;
         return __LINE__;
     }
 

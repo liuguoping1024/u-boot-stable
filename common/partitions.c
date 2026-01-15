@@ -69,7 +69,7 @@ int check_valid_dts(unsigned char *buffer)
 		flush_cache((unsigned long)sbuffer, AML_DTB_IMG_MAX_SZ);
 		ret = aml_sec_boot_check(AML_D_P_IMG_DECRYPT, (long unsigned)sbuffer, AML_DTB_IMG_MAX_SZ, 0);
 		if (ret) {
-			printf("\n %s() %d: Decrypt dtb: Sig Check %d\n", __func__, __LINE__, ret);
+			//printf("\n %s() %d: Decrypt dtb: Sig Check %d\n", __func__, __LINE__, ret);
 			return -__LINE__;
 		}
 		memcpy(buffer, sbuffer, AML_DTB_IMG_MAX_SZ);
@@ -79,10 +79,10 @@ int check_valid_dts(unsigned char *buffer)
 #else
 	dt_addr = (char *)buffer;
 #endif
-	pr_debug("start dts,buffer=%p,dt_addr=%p\n", buffer, dt_addr);
+	//pr_debug("start dts,buffer=%p,dt_addr=%p\n", buffer, dt_addr);
 	ret = fdt_check_header(dt_addr);
-	if ( ret < 0 )
-		printf("%s: %s\n",__func__,fdt_strerror(ret));
+	//if ( ret < 0 )
+	//	printf("%s: %s\n",__func__,fdt_strerror(ret));
 	/* fixme, is it 0 when ok? */
 	return ret;
 }
@@ -104,10 +104,10 @@ int get_partition_from_dts(unsigned char *buffer)
 		goto _err;
 
 	ret = check_valid_dts(buffer);
-	printf("%s() %d: ret %d\n",__func__, __LINE__, ret);
+	//printf("%s() %d: ret %d\n",__func__, __LINE__, ret);
 	if ( ret < 0 )
 	{
-		printf("%s() %d: ret %d\n",__func__, __LINE__, ret);
+		//printf("%s() %d: ret %d\n",__func__, __LINE__, ret);
 		goto _err;
 	}
 #ifdef CONFIG_MULTI_DTB
@@ -118,18 +118,18 @@ int get_partition_from_dts(unsigned char *buffer)
 	nodeoffset = fdt_path_offset(dt_addr, "/partitions");
 	if (nodeoffset < 0)
 	{
-		printf("%s: not find /partitions node %s.\n",__func__,fdt_strerror(nodeoffset));
+		//printf("%s: not find /partitions node %s.\n",__func__,fdt_strerror(nodeoffset));
 		ret = -1;
 		goto _err;
 	}
 	parts_num = (int *)fdt_getprop(dt_addr, nodeoffset, "parts", NULL);
-	printf("parts: %d\n",be32_to_cpup((u32*)parts_num));
+	//printf("parts: %d\n",be32_to_cpup((u32*)parts_num));
 
 	if (parts_num > 0)
 	{
 		part_table = (struct partitions *)malloc(sizeof(struct partitions)*(be32_to_cpup((u32*)parts_num)));
 		if (!part_table) {
-			printk("%s part_table alloc _err\n",__func__);
+			//printk("%s part_table alloc _err\n",__func__);
 			//kfree(data);
 			return -1;
 		}
@@ -146,13 +146,13 @@ int get_partition_from_dts(unsigned char *buffer)
 
 		phandle = fdt_getprop(dt_addr, nodeoffset, propname, NULL);
 		if (!phandle) {
-			printf("don't find  match part-%d\n",index);
+			//printf("don't find  match part-%d\n",index);
 			goto _err;
 		}
 		if (phandle) {
 			poffset = fdt_node_offset_by_phandle(dt_addr, be32_to_cpup((u32*)phandle));
 			if (!poffset) {
-				printf("%s:%d,can't find device node\n",__func__,__LINE__);
+				//printf("%s:%d,can't find device node\n",__func__,__LINE__);
 				goto _err;
 			}
 		}
