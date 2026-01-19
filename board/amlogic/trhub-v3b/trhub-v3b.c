@@ -36,8 +36,6 @@
 #endif
 
 
-
-
 /* RGB LED 初始化函数 */
 static int rgb_led_init(void)
 {
