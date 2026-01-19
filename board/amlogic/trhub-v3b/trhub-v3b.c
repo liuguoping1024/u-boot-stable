@@ -18,16 +18,23 @@
 
 #include <asm/gpio.h>
 
-#define RGB_RED_GPIO		89
-#define RGB_GREEN_GPIO		4
-#define RGB_BLUE_GPIO		5
+#if 1
+/* U-Boot v2023.10+: periphs-banks(0-85), aobus-banks(86-99) */
+#define RGB_RED_GPIO		3  //GPIOAO_3 0 + 3 = 3
+#define RGB_GREEN_GPIO		18  //GPIOZ_4 14 + 4 = 18
+#define RGB_BLUE_GPIO		19  //GPIOZ_5 14 + 5 = 19
+#define ZIGBEE_RXD_GPIO		23 //GPIOZ_9 14 + 9 = 23	
+#define THREAD_RXD_GPIO		78 //GPIOX_17 47 + 17 = 64
+#else
+/* U-Boot v2022.10: aobus-banks(0-13), periphs-banks(14-99) */
+#define RGB_RED_GPIO		89  //GPIOAO_3 86 + 3 = 89
+#define RGB_GREEN_GPIO		4  //GPIOZ_4 14 + 4 = 18
+#define RGB_BLUE_GPIO		5  //GPIOZ_5 14 + 5 = 19	
+#define ZIGBEE_RXD_GPIO		9 //GPIOZ_9 14 + 9 = 23
+#define THREAD_RXD_GPIO		64 //GPIOX_17 47 + 17 = 64
 
+#endif
 
-// GPIOZ_9 --> 9
-#define ZIGBEE_RXD_GPIO		9
-
-// GPIOX_17 --> 64
-#define THREAD_RXD_GPIO		64
 
 
 

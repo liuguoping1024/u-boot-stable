@@ -291,7 +291,7 @@ int keymanage_dts_parse(const void* dt_addr)
 
 	nodeoffset = fdt_path_offset(dt_addr, "/unifykey");
 	if (nodeoffset < 0) {
-		KM_ERR("dts: err(%s) in find /unifykey.\n",fdt_strerror(nodeoffset));
+		//KM_ERR("dts: err(%s) in find /unifykey.\n",fdt_strerror(nodeoffset));
 		return __LINE__;
 	}
 
