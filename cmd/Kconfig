@@ -1689,6 +1689,11 @@ config CMD_XXD
 	help
 	  Print file as hexdump to standard output
 
+config CMD_FILEENV
+	bool "fileenv"
+	help
+	   Read a file into memory and store it to env.
+
 endmenu
 
 menu "Android support commands"
