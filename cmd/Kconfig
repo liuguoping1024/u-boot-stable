@@ -1680,6 +1680,11 @@ config CMD_AB_SELECT
 	  is used by the new A/B update model where one slot is updated in the
 	  background while running from the other slot.
 
+config CMD_FILEENV
+	bool "fileenv"
+	help
+	   Read a file into memory and store it to env.
+
 endmenu
 
 if NET
