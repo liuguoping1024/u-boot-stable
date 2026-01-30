@@ -167,6 +167,7 @@ static const struct meson_sm_data meson_sm_gxbb_data = {
 	.cmd_get_shmem_out = 0x82000021,
 	.shmem_size = SZ_4K,
 	.cmd = {
+		SET_CMD(MESON_SMC_CMD_EFUSE_MAX,   0x82000033),
 		SET_CMD(MESON_SMC_CMD_EFUSE_READ,  0x82000030),
 		SET_CMD(MESON_SMC_CMD_EFUSE_WRITE, 0x82000031),
 		SET_CMD(MESON_SMC_CMD_CHIP_ID_GET, 0x82000044),

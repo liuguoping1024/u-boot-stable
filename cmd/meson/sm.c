@@ -33,6 +33,25 @@ static int do_sm_serial(struct cmd_tbl *cmdtp, int flag, int argc,
 	return CMD_RET_SUCCESS;
 }
 
+static int do_sm_serialv2(struct cmd_tbl *cmdtp, int flag, int argc,
+			char *const argv[])
+{
+	ulong address;
+	int ret;
+
+	if (argc < 2)
+		return CMD_RET_USAGE;
+
+	address = simple_strtoul(argv[1], NULL, 0);
+
+	ret = meson_sm_get_serial2((void *)address, SM_SERIAL2_SIZE);
+	if (ret)
+		return CMD_RET_FAILURE;
+
+	return CMD_RET_SUCCESS;
+}
+
+
 #define MAX_REBOOT_REASONS 14
 
 static const char *reboot_reasons[MAX_REBOOT_REASONS] = {
@@ -152,12 +171,38 @@ free_buffer:
 	return ret;
 }
 
+static int do_efuse_getmax(struct cmd_tbl *cmdtp, int flag, int argc,
+			   char *const argv[])
+{
+	char efusesizeprint[32]; // this covers int64 (2^64), which is 20 digits long
+	char *destarg = NULL;
+	int efusesize;
+
+	if (argc > 1)
+		destarg = argv[1];
+
+	efusesize = meson_sm_getmax(NULL, 0); // TODO: check if this is correct
+	if (efusesize < 0)
+		return CMD_RET_FAILURE;
+
+	snprintf(efusesizeprint, sizeof(efusesizeprint), "%d", efusesize);
+	if (destarg)
+		env_set(destarg, efusesizeprint);
+	else
+		printf("%s\n", efusesizeprint);
+
+	return CMD_RET_SUCCESS;
+}
+
 static struct cmd_tbl cmd_sm_sub[] = {
 	U_BOOT_CMD_MKENT(serial, 2, 1, do_sm_serial, "", ""),
+	U_BOOT_CMD_MKENT(serialv2, 2, 1, do_sm_serialv2, "", ""),
 	U_BOOT_CMD_MKENT(reboot_reason, 1, 1, do_sm_reboot_reason, "", ""),
 	U_BOOT_CMD_MKENT(efuseread, 4, 1, do_efuse_read, "", ""),
 	U_BOOT_CMD_MKENT(efusewrite, 4, 0, do_efuse_write, "", ""),
 	U_BOOT_CMD_MKENT(efusedump, 3, 1, do_efuse_dump, "", ""),
+	U_BOOT_CMD_MKENT(getmax, 2, 1, do_efuse_getmax, "", ""),
+	
 };
 
 static int do_sm(struct cmd_tbl *cmdtp, int flag, int argc,
@@ -184,8 +229,10 @@ U_BOOT_CMD(
 	sm, 5, 0, do_sm,
 	"Secure Monitor Control",
 	"serial <address> - read chip unique id to memory address\n"
+	"serialv2 <address> - read chip unique id (ver 2) to memory address\n"
 	"sm reboot_reason [name] - get reboot reason and store to environment\n"
 	"sm efuseread <offset> <size> <address> - read efuse to memory address\n"
 	"sm efusewrite <offset> <size> <address> - write into efuse from memory address\n"
-	"sm efusedump <offset> <size> - dump efuse data range to console"
+	"sm efusedump <offset> <size> - dump efuse data range to console\n"
+	"sm getmax [name] - get max size of user accesible efuse and store to environment\n"
 );

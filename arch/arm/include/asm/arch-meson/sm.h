@@ -26,7 +26,16 @@ ssize_t meson_sm_read_efuse(uintptr_t offset, void *buffer, size_t size);
  */
 ssize_t meson_sm_write_efuse(uintptr_t offset, void *buffer, size_t size);
 
+/**
+ * meson_sm_getmax - get max size of user efuse
+ * @buffer: pointer to buffer
+ * @size: buffer size
+ * @return: size of user efuse or -errno on failure
+ */
+ssize_t meson_sm_getmax(void *buffer, size_t size);
+
 #define SM_SERIAL_SIZE	12
+#define SM_SERIAL2_SIZE	16
 
 /**
  * meson_sm_get_serial - read chip unique id into buffer
@@ -36,6 +45,15 @@ ssize_t meson_sm_write_efuse(uintptr_t offset, void *buffer, size_t size);
  * @return: zero on success or -errno on failure
  */
 int meson_sm_get_serial(void *buffer, size_t size);
+
+/**
+ * meson_sm_get_serial2 - read chip unique id (ver.2) into buffer
+ *
+ * @buffer: pointer to buffer
+ * @size: buffer size.
+ * @return: zero on success or -errno on failure
+ */
+int meson_sm_get_serial2(void *buffer, size_t size);
 
 enum {
 	REBOOT_REASON_COLD = 0,

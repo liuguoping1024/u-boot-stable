@@ -9,6 +9,7 @@
 #define __MESON_SM_CMD_H__
 
 enum meson_smc_cmd {
+	MESON_SMC_CMD_EFUSE_MAX,   /* get max size of user efuse */
 	MESON_SMC_CMD_EFUSE_READ,  /* read efuse memory */
 	MESON_SMC_CMD_EFUSE_WRITE, /* write efuse memory */
 	MESON_SMC_CMD_CHIP_ID_GET, /* readh chip unique id */

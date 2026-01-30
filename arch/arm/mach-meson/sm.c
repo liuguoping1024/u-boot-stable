@@ -77,7 +77,26 @@ ssize_t meson_sm_write_efuse(uintptr_t offset, void *buffer, size_t size)
 	return err;
 }
 
+ssize_t meson_sm_getmax(void *buffer, size_t size)
+{
+	struct udevice *dev;
+	struct pt_regs regs = { 0 };
+	int err;
+
+	dev = meson_get_sm_device();
+	if (IS_ERR(dev))
+		return PTR_ERR(dev);
+
+	err = sm_call_read(dev, buffer, size,
+			   MESON_SMC_CMD_EFUSE_MAX, &regs);
+	if (err < 0)
+		pr_err("Failed to read max size of efuse memory (%d)\n", err);
+
+	return err;
+}
+
 #define SM_CHIP_ID_LENGTH	119
+#define SM_CHIP_ID_LENGTH2	128
 #define SM_CHIP_ID_OFFSET	4
 #define SM_CHIP_ID_SIZE		12
 
@@ -86,6 +105,28 @@ int meson_sm_get_serial(void *buffer, size_t size)
 	struct udevice *dev;
 	struct pt_regs regs = { 0 };
 	u8 id_buffer[SM_CHIP_ID_LENGTH];
+	int err;
+
+	dev = meson_get_sm_device();
+	if (IS_ERR(dev))
+		return PTR_ERR(dev);
+
+	err = sm_call_read(dev, id_buffer, SM_CHIP_ID_LENGTH,
+			   MESON_SMC_CMD_CHIP_ID_GET, &regs);
+	if (err < 0)
+		pr_err("Failed to read serial number (%d)\n", err);
+
+	memcpy(buffer, id_buffer + SM_CHIP_ID_OFFSET, size);
+
+	return 0;
+}
+
+int meson_sm_get_serial2(void *buffer, size_t size)
+{
+	struct udevice *dev;
+	struct pt_regs regs = { 0 };
+	regs.regs[1] = 2;
+	u8 id_buffer[SM_CHIP_ID_LENGTH2];
 	int err;
 
 	dev = meson_get_sm_device();
