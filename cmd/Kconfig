@@ -2729,6 +2729,11 @@ config CMD_REISER
 	    reiserls - list files
 	    reiserload - load a file
 
+config AML_STORAGE
+	bool "aml storage support"
+	help
+	  storage cmd support
+
 config CMD_YAFFS2
 	bool "yaffs2 - Access of YAFFS2 filesystem"
 	depends on YAFFS2
