@@ -922,9 +922,9 @@ int emmc_pre(void)
 		}
 		config_storage_dev_func(storage_dev, mmc);
 		store_register(storage_dev);
-		printf("emmc init success!\n");
+		//printf("emmc init success!\n");
 	} else
-		printf("emmc init fail!\n");
+		//printf("emmc init fail!\n");
 	return ret;
 }
 
@@ -935,10 +935,10 @@ int emmc_probe(uint32_t init_flag)
 
 	ret = mmc_storage_init(init_flag); /*flag 0*/
 	if (ret) {
-		printf("mmc init failed ret:%x\n", ret);
+		//printf("mmc init failed ret:%x\n", ret);
 		goto exit_error;
 	}
-	printf("emmc probe success\n");
+	//printf("emmc probe success\n");
 
 exit_error:
 	return ret;

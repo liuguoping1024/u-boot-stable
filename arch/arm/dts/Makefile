@@ -212,6 +212,8 @@ dtb-$(CONFIG_ARCH_MESON) += \
 	meson-a1-ad401.dtb \
 	meson-axg-s400.dtb \
 	meson-axg-jethome-jethub-j100.dtb \
+	meson-axg-thirdreality-trhub-v3.dtb \
+	meson-axg-thirdreality-trhub-v3b.dtb \
 	meson-gxbb-kii-pro.dtb \
 	meson-gxbb-nanopi-k2.dtb \
 	meson-gxbb-odroidc2.dtb \

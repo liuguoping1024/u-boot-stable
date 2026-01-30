@@ -39,16 +39,19 @@ DECLARE_GLOBAL_DATA_PTR;
 #define CONFIG_MPT_DEBUG 	(0)
 #define GPT_PRIORITY             (1)
 
+#if (CONFIG_MPT_DEBUG)
 #define apt_err(fmt, ...) printf( "%s()-%d: " fmt , \
                   __func__, __LINE__, ##__VA_ARGS__)
 
 #define apt_wrn(fmt, ...) printf( "%s()-%d: " fmt , \
                   __func__, __LINE__, ##__VA_ARGS__)
-#if (CONFIG_MPT_DEBUG)
+
 /* for detail debug info */
 #define apt_info(fmt, ...) printf( "%s()-%d: " fmt , \
                   __func__, __LINE__, ##__VA_ARGS__)
 #else
+#define apt_err(fmt, ...)
+#define apt_wrn(fmt, ...)
 #define apt_info(fmt, ...)
 #endif
 
