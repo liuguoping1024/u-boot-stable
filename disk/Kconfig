@@ -165,4 +165,17 @@ config SPL_PARTITION_TYPE_GUID
 	  Activate the configuration of GUID type
 	  for EFI partition
 
+config AML_PARTITION
+	bool "Enable AML partition table"
+	depends on PARTITIONS
+	help
+	   "AML_PARTITION_HELP"
+
+config AML_GPT
+	bool "Enable AML GPT partition table"
+	depends on PARTITIONS
+	select RANDOM_UUID
+	help
+	   "AML_GPT_HELP"
+
 endmenu

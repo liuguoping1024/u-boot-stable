@@ -11,6 +11,9 @@ obj-y += exports.o
 obj-$(CONFIG_HUSH_PARSER) += cli_hush.o
 obj-$(CONFIG_AUTOBOOT) += autoboot.o
 
+obj-$(CONFIG_AML_STORAGE) += partitions.o
+obj-$(CONFIG_AML_STORAGE) += aml_dt.o
+
 # # boards
 obj-y += board_f.o
 obj-y += board_r.o
