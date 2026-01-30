@@ -18,16 +18,40 @@
 
 #include <asm/gpio.h>
 
-#define RGB_RED_GPIO		89
-#define RGB_GREEN_GPIO		4
-#define RGB_BLUE_GPIO		5
+/*
+ * GPIO Bank 顺序在不同 U-Boot 版本中发生了变化:
+ * 
+ * v2022.10: aobus-banks(0-13), periphs-banks(14-99)
+ * v2023.10: periphs-banks(0-85), aobus-banks(86-99)
+ * 
+ * 硬件连接:
+ * - RGB_RED:    GPIOAO_3  
+ * - RGB_GREEN:  GPIOZ_4   
+ * - RGB_BLUE:   GPIOZ_5   
+ * - ZIGBEE_RXD: GPIOZ_9   
+ * - THREAD_RXD: GPIOX_17  
+ * 
+ * 使用 UBOOT_GPIO_BANK_V2023 宏来选择版本:
+ * - 不定义(默认): 使用 v2022.10 的 GPIO 编号
+ * - 定义为 1:      使用 v2023.10 的 GPIO 编号
+ */
 
+#if 1
+/* U-Boot v2023.10+: periphs-banks(0-85), aobus-banks(86-99) */
+#define RGB_RED_GPIO		3  //GPIOAO_3 0 + 3 = 3
+#define RGB_GREEN_GPIO		18  //GPIOZ_4 14 + 4 = 18
+#define RGB_BLUE_GPIO		19  //GPIOZ_5 14 + 5 = 19
+#define ZIGBEE_RXD_GPIO		23 //GPIOZ_9 14 + 9 = 23	
+#define THREAD_RXD_GPIO		78 //GPIOX_17 47 + 17 = 64
+#else
+/* U-Boot v2022.10: aobus-banks(0-13), periphs-banks(14-99) */
+#define RGB_RED_GPIO		89  //GPIOAO_3 86 + 3 = 89
+#define RGB_GREEN_GPIO		4  //GPIOZ_4 14 + 4 = 18
+#define RGB_BLUE_GPIO		5  //GPIOZ_5 14 + 5 = 19	
+#define ZIGBEE_RXD_GPIO		9 //GPIOZ_9 14 + 9 = 23
+#define THREAD_RXD_GPIO		64 //GPIOX_17 47 + 17 = 64
 
-// GPIOZ_9 --> 9
-#define ZIGBEE_RXD_GPIO		9
-
-// GPIOX_17 --> 64
-#define THREAD_RXD_GPIO		64
+#endif
 
 
 
