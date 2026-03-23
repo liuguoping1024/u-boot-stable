@@ -27,6 +27,7 @@ config TARGET_ST_STM32MP15X
 
 config TARGET_DH_STM32MP1_PDK2
 	bool "DH STM32MP1 PDK2"
+	select BOARD_EARLY_INIT_F
 	help
 		Target the DH PDK2 development kit with STM32MP15x SoM.
 
