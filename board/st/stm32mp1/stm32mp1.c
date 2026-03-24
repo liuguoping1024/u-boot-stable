@@ -87,12 +87,6 @@ struct efi_capsule_update_info update_info = {
 
 #endif /* EFI_HAVE_CAPSULE_SUPPORT */
 
-int board_early_init_f(void)
-{
-	/* nothing to do, only used in SPL */
-	return 0;
-}
-
 int checkboard(void)
 {
 	int ret;
