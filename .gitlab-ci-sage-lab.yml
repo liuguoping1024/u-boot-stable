@@ -30,7 +30,7 @@
       labgrid-client -p ${LABGRID_EXPORTER} power on
     # Prepare ssh
     - mkdir --mode=0700 ~/.ssh;
-      printf 'Host sage-exporter-*\n\tUser labgrid\n' > ~/.ssh/config
+      printf 'Host *-exporter-*\n\tUser labgrid\n' > ~/.ssh/config
     # If we have TF-A binaries, we need to use them.
     - if [[ -d /opt/tf-a/${TEST_PY_BD}${TEST_PY_ID//--id /_} ]]; then
         cp /opt/tf-a/${TEST_PY_BD}${TEST_PY_ID//--id /_}/* /tmp/;
@@ -150,7 +150,7 @@ SolidRun Hummingboard 2 (lwIP):
 Raspberry Pi 4:
   <<: *sage_lab_dfn
   variables:
-    LG_COORDINATOR: 192.168.116.2:20408
+    LG_COORDINATOR: puma.k.g:20408
     LG_ENV: "/tmp/uboot-test-hooks/bin/sage/labgrid-puma-env.yaml"
     LABGRID_EXPORTER: "ti-lab-exporter-rpi4"
     LG_PLACE: "rpi4"
@@ -161,7 +161,7 @@ Raspberry Pi 4 (rpi_arm64):
   <<: *sage_lab_dfn
   needs: [ "Raspberry Pi 4" ]
   variables:
-    LG_COORDINATOR: 192.168.116.2:20408
+    LG_COORDINATOR: puma.k.g:20408
     LG_ENV: "/tmp/uboot-test-hooks/bin/sage/labgrid-puma-env.yaml"
     LABGRID_EXPORTER: "ti-lab-exporter-rpi4"
     LG_PLACE: "rpi4"
@@ -172,7 +172,7 @@ Raspberry Pi 4 (rpi_arm64, lwIP):
   <<: *sage_lab_dfn
   needs: [ "Raspberry Pi 4 (rpi_arm64)" ]
   variables:
-    LG_COORDINATOR: 192.168.116.2:20408
+    LG_COORDINATOR: puma.k.g:20408
     LG_ENV: "/tmp/uboot-test-hooks/bin/sage/labgrid-puma-env.yaml"
     LABGRID_EXPORTER: "ti-lab-exporter-rpi4"
     LG_PLACE: "rpi4"
@@ -183,7 +183,7 @@ Raspberry Pi 4 (rpi_4_32b):
   <<: *sage_lab_dfn
   needs: [ "Raspberry Pi 4 (rpi_arm64, lwIP)" ]
   variables:
-    LG_COORDINATOR: 192.168.116.2:20408
+    LG_COORDINATOR: puma.k.g:20408
     LG_ENV: "/tmp/uboot-test-hooks/bin/sage/labgrid-puma-env.yaml"
     LABGRID_EXPORTER: "ti-lab-exporter-rpi4"
     LG_PLACE: "rpi4"
@@ -194,7 +194,7 @@ Raspberry Pi 4 (rpi_4_32b, lwIP):
   <<: *sage_lab_dfn
   needs: [ "Raspberry Pi 4 (rpi_4_32b)" ]
   variables:
-    LG_COORDINATOR: 192.168.116.2:20408
+    LG_COORDINATOR: puma.k.g:20408
     LG_ENV: "/tmp/uboot-test-hooks/bin/sage/labgrid-puma-env.yaml"
     LABGRID_EXPORTER: "ti-lab-exporter-rpi4"
     LG_PLACE: "rpi4"
