@@ -700,18 +700,24 @@ static int do_nand(struct cmd_tbl *cmdtp, int flag, int argc,
 	}
 
 	if (strncmp(cmd, "dump", 4) == 0) {
-		int only_oob, ecc;
+		int only_oob, ecc, part;
 
 		if (argc < 3)
 			goto usage;
 
-		only_oob = !strcmp(&cmd[4], ".oob") || !strcmp(&cmd[4], ".ecc.oob") ||
-			!strcmp(&cmd[4], ".oob.ecc");
+		only_oob = (strstr(cmd, ".oob") != NULL);
+		ecc = (strstr(cmd, ".ecc") != NULL);
+		part = (strstr(cmd, ".part") != NULL);
 
-		ecc = !strcmp(&cmd[4], ".ecc") || !strcmp(&cmd[4], ".ecc.oob") ||
-			!strcmp(&cmd[4], ".oob.ecc");
+		if (part) {
+			if (mtd_arg_off_size(argc - 2, argv + 2, &dev, &off, &size,
+					     &maxsize, MTD_DEV_TYPE_NAND,
+					     mtd->size) != 0)
+				return 1;
+		} else {
+			off = (int)hextoul(argv[2], NULL);
+		}
 
-		off = (int)hextoul(argv[2], NULL);
 		ret = nand_dump(mtd, off, only_oob, ecc, repeat);
 
 		return ret == 0 ? 1 : 0;
@@ -1042,7 +1048,7 @@ U_BOOT_LONGHELP(nand,
 	"nand erase.part [clean] partition - erase entire mtd partition'\n"
 	"nand erase.chip [clean] - erase entire chip'\n"
 	"nand bad - show bad blocks\n"
-	"nand dump[.oob][.ecc] off - dump raw (default) or ecc corrected page at offset\n"
+	"nand dump[.oob][.ecc][.part] off|partition - dump raw (default) or ecc corrected page at offset or partition\n"
 #ifdef CONFIG_CMD_NAND_WATCH
 	"nand watch <off> <size> - check an area for bitflips\n"
 	"nand watch.part <part> - check a partition for bitflips\n"
