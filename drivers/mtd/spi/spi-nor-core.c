@@ -1409,14 +1409,6 @@ static const struct flash_info *spi_nor_read_id(struct spi_nor *nor)
 	if (info)
 		return info;
 
-	info = spi_nor_ids;
-	for (; info->name; info++) {
-		if (info->id_len) {
-			if (!memcmp(info->id, id, info->id_len))
-				return info;
-		}
-	}
-
 	dev_err(nor->dev, "unrecognized JEDEC id bytes: %02x, %02x, %02x\n",
 		id[0], id[1], id[2]);
 	return ERR_PTR(-ENODEV);
