@@ -6,6 +6,9 @@ FROM ubuntu:noble-20251013
 LABEL org.opencontainers.image.authors="Tom Rini <trini@konsulko.com>"
 LABEL org.opencontainers.image.description=" This image is for building U-Boot inside a container"
 
+# Ensure we have pipefail set in all steps
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Used by Docker to set the target platform: valid values are linux/arm64
 # and linux/amd64
 ARG TARGETPLATFORM
