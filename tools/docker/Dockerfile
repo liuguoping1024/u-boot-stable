@@ -158,9 +158,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 
 # Build GRUB UEFI targets for ARM & RISC-V, 32-bit and 64-bit, and LoongArch
 # 64-bit
-RUN git clone https://https.git.savannah.gnu.org/git/grub.git /tmp/grub && \
+RUN git clone --depth 1 -b grub-2.14 \
+	https://gitlab.freedesktop.org/gnu-grub/grub.git /tmp/grub && \
 	cd /tmp/grub && \
-	git checkout grub-2.14 && \
 	git config --global user.name "GitLab CI Runner" && \
 	git config --global user.email trini@konsulko.com && \
 	GNULIB_URL=https://https.git.savannah.gnu.org/git/gnulib.git ./bootstrap && \
@@ -244,9 +244,9 @@ RUN git clone https://https.git.savannah.gnu.org/git/grub.git /tmp/grub && \
 	grub-core normal echo lsefimmap lsefi lsefisystab efinet tftp minicmd && \
 	rm -rf /tmp/grub
 
-RUN git clone https://gitlab.com/qemu-project/qemu.git /tmp/qemu && \
+RUN git clone --depth 1 -b v10.1.2 \
+	https://gitlab.com/qemu-project/qemu.git /tmp/qemu && \
 	cd /tmp/qemu && \
-	git checkout v10.1.2 && \
 	# config user.name and user.email to make 'git am' happy
 	git config user.name u-boot && \
 	git config user.email u-boot@denx.de && \
